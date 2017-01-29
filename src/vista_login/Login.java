@@ -1,9 +1,12 @@
 package vista_login;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.swing.JOptionPane;
+import modelo.Usuario;
 
 /**
  *
@@ -11,17 +14,23 @@ import javax.persistence.Persistence;
  */
 public class Login extends javax.swing.JFrame {
 
-    private EntityManagerFactory emf;
+    private EntityManagerFactory emf; 
     private EntityManager em;
     private EntityTransaction tx;
+    List<Usuario> todosLosUsuarios; // lista vacia tipo usuarios 
 
-    public Login() {
-        initComponents();
-        emf = Persistence.createEntityManagerFactory("Transvalle2PU"); 
-        em = emf.createEntityManager();
-        tx = em.getTransaction();
+    public Login() { // Constructor de Login generado automatocamente
+        initComponents(); // inicializar todos los componentes del jframe
+        String estiben = "estiben";
+        emf = Persistence.createEntityManagerFactory("Transvalle2PU");  // inicializar entitymanagerfactory
+        em = emf.createEntityManager(); // inicializar EntityManager
+        tx = em.getTransaction(); // inicializar  EntityTransaction
+        
+        todosLosUsuarios = em.createNamedQuery("Usuario.findAll", Usuario.class).getResultList(); // consultar todos los usuarios
+        
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -128,8 +137,35 @@ public class Login extends javax.swing.JFrame {
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         // TODO add your handling code here:
-        String usuario = txtusuario.getText();
-        char[] pass = txtPass.getPassword();
+        // nuevo usuario y contraseña
+        String usuario = txtusuario.getText();                
+        String pass = new String(txtPass.getPassword());        
+        
+               
+        for (Usuario user : todosLosUsuarios) { // for que recorre la lista con todos los usuarios
+            if (usuario.equals(user.getUsuario())) {  // si el nombre de usuario digitado es igual al usuario de la lista 
+                // iniciar sesion
+                System.err.println("usuario correcto");
+                if (pass.equals(user.getContraseña())) { // si la contraseña coincide
+                     JOptionPane.showMessageDialog(this, "Inicio de sesion exitoso", "Felicidades ", JOptionPane.INFORMATION_MESSAGE);
+                     String rol = user.getRol(); // guardar en la variavle rol el rol del usuario
+                     if (rol.equals("Despachador")) {
+                        // ir a planilla de control
+                        
+                    }else if(rol.equals("Jefe de ruta")){
+                        // ir a gestion
+                        
+                    }
+                     
+                     
+                }else{
+                    JOptionPane.showMessageDialog(this, "No coincide la contraseña", "pass invalidap", JOptionPane.ERROR_MESSAGE);
+                }
+                
+            }else { //
+                JOptionPane.showMessageDialog(this, "Este usuario no existe", "digite otro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
         
         
 

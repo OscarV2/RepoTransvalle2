@@ -5,6 +5,8 @@
  */
 package transvalle2;
 
+import vista_login.Login;
+
 /**
  *
  * @author oscar
@@ -15,7 +17,8 @@ public class Transvalle2 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+        Login login = new Login();
+        login.setVisible(true);
     }
     
 }

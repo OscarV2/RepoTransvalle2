@@ -1,16 +1,25 @@
 package vista_login;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+
 /**
  *
  * @author oscar
  */
 public class Login extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Login
-     */
+    private EntityManagerFactory emf;
+    private EntityManager em;
+    private EntityTransaction tx;
+
     public Login() {
         initComponents();
+        emf = Persistence.createEntityManagerFactory("Transvalle2PU"); 
+        em = emf.createEntityManager();
+        tx = em.getTransaction();
     }
 
     /**
@@ -123,6 +132,7 @@ public class Login extends javax.swing.JFrame {
         char[] pass = txtPass.getPassword();
         
         
+
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     /**

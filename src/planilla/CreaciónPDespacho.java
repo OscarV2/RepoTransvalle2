@@ -29,8 +29,8 @@ public class CreaciónPDespacho extends javax.swing.JFrame {
         emf = Persistence.createEntityManagerFactory("Transvalle2PU");
         em = emf.createEntityManager();
         tx = em.getTransaction();
-        cal = Calendar.getInstance();
-        mes = 0;
+        cal = Calendar.getInstance(); // clase 
+        mes = 0;        // mes enero
         initComponents();
         setLocationRelativeTo(null); // centrar ventana
         rutas = em.createNamedQuery("Ruta.findAll").getResultList();
@@ -40,6 +40,7 @@ public class CreaciónPDespacho extends javax.swing.JFrame {
             nombresRutas[i] = rutas.get(i - 1).getNombre();
             System.out.println(nombresRutas[i]);
         }
+        
         llenarTabla(mes, nombresRutas);  //llena tabla con dias del mes        
 
     }
@@ -198,9 +199,11 @@ public class CreaciónPDespacho extends javax.swing.JFrame {
     }
 
     private void llenarTabla(int mes, String[] nombresRutas) {
-        cal.set(Calendar.MONTH, mes);  // mes del calendar febrero
+        
+        cal.set(Calendar.MONTH, mes);  // mes del calendar enero
         cal.set(Calendar.DAY_OF_MONTH, 1);  // dia uno  del calendar
-        String[] a = new String[31];
+        /************************NOMBRAR DIAS DE LA SEMANA DE TODO EL MES *********************************************+*/
+        String[] a = new String[31];      // a es el conjunto de nombres de todos los dias del mes ej: "Domingo 1" , "Lunes 2"                
         int maxDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
         for (int i = 1; i <= maxDay; i++) {
             cal.set(Calendar.DAY_OF_MONTH, i);
@@ -229,6 +232,7 @@ public class CreaciónPDespacho extends javax.swing.JFrame {
                     break;
             }
         }
+
         String[] fila = new String[a.length + 1];  // fila dias
         fila[0] = "Día";
         for (int i = 1; i < fila.length; i++) {

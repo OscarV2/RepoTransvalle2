@@ -5,6 +5,11 @@
     <class>modelo.Usuario</class>
     <class>modelo.Ruta</class>
     <class>modelo.Bus</class>
+    <class>modelo.PersonaHasDocumento</class>
+    <class>modelo.Persona</class>
+    <class>modelo.DocumentoHasBus</class>
+    <class>modelo.Gasto</class>
+    <class>modelo.Panillarecaudo</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/transvalle?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

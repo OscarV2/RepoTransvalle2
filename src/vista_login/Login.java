@@ -149,12 +149,6 @@ public class Login extends javax.swing.JFrame {
         
         todosLosUsuarios = consultarUsuario.getResultList(); 
         Usuario user = todosLosUsuarios.get(0);
-     //   for(Usuario user : todosLosUsuarios){
-            System.err.println(user.getRol());
-            System.err.println(user.getUsuario());
-            System.err.println(user.getId());
-            
-    //    }
                
         
             if (usuarioDigitado.equals(user.getUsuario()) ) {  // si el nombre de usuario digitado es igual al usuario de la lista 
@@ -163,7 +157,7 @@ public class Login extends javax.swing.JFrame {
                if (pass.equals(user.getContraseña())) { // si la contraseña coincide
                      JOptionPane.showMessageDialog(this, "Inicio de sesion exitoso", "Felicidades ", JOptionPane.INFORMATION_MESSAGE);
                      String rol = user.getRol(); // guardar en la variavle rol el rol del usuario
-                     if (rol.equals("Despachador")) {
+                     if (rol.equals("Jefe de ruta")) { // 
                         // ir a planilla de control
                         this.setVisible(false);  // ocultar login
                          CreaciónPDespacho despacho = new CreaciónPDespacho();

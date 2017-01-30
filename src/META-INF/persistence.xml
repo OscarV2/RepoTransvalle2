@@ -3,6 +3,8 @@
   <persistence-unit name="Transvalle2PU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>modelo.Usuario</class>
+    <class>modelo.Ruta</class>
+    <class>modelo.Bus</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/transvalle?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

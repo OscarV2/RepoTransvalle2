@@ -5,8 +5,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
 import modelo.Usuario;
+import planilla.CreaciónPDespacho;
 
 /**
  *
@@ -21,6 +23,7 @@ public class Login extends javax.swing.JFrame {
 
     public Login() { // Constructor de Login generado automatocamente
         initComponents(); // inicializar todos los componentes del jframe
+        setLocationRelativeTo(null);
         String estiben = "estiben";
         emf = Persistence.createEntityManagerFactory("Transvalle2PU");  // inicializar entitymanagerfactory
         em = emf.createEntityManager(); // inicializar EntityManager
@@ -138,34 +141,49 @@ public class Login extends javax.swing.JFrame {
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         // TODO add your handling code here:
         // nuevo usuario y contraseña
-        String usuario = txtusuario.getText();                
+        String usuarioDigitado = txtusuario.getText();         // variable con el usuario digitado en el campo Usuario        
         String pass = new String(txtPass.getPassword());        
         
+        TypedQuery consultarUsuario = em.createNamedQuery("Usuario.findByUsuario", Usuario.class);
+        consultarUsuario.setParameter("usuario", usuarioDigitado);
+        
+        todosLosUsuarios = consultarUsuario.getResultList(); 
+        Usuario user = todosLosUsuarios.get(0);
+     //   for(Usuario user : todosLosUsuarios){
+            System.err.println(user.getRol());
+            System.err.println(user.getUsuario());
+            System.err.println(user.getId());
+            
+    //    }
                
-        for (Usuario user : todosLosUsuarios) { // for que recorre la lista con todos los usuarios
-            if (usuario.equals(user.getUsuario())) {  // si el nombre de usuario digitado es igual al usuario de la lista 
+        
+            if (usuarioDigitado.equals(user.getUsuario()) ) {  // si el nombre de usuario digitado es igual al usuario de la lista 
                 // iniciar sesion
                 System.err.println("usuario correcto");
-                if (pass.equals(user.getContraseña())) { // si la contraseña coincide
+               if (pass.equals(user.getContraseña())) { // si la contraseña coincide
                      JOptionPane.showMessageDialog(this, "Inicio de sesion exitoso", "Felicidades ", JOptionPane.INFORMATION_MESSAGE);
                      String rol = user.getRol(); // guardar en la variavle rol el rol del usuario
                      if (rol.equals("Despachador")) {
                         // ir a planilla de control
-                        
+                        this.setVisible(false);  // ocultar login
+                         CreaciónPDespacho despacho = new CreaciónPDespacho();
+                         despacho.setVisible(true);
                     }else if(rol.equals("Jefe de ruta")){
                         // ir a gestion
                         
                     }
                      
                      
-                }else{
+                }else{ // no coincide la contraseña
                     JOptionPane.showMessageDialog(this, "No coincide la contraseña", "pass invalidap", JOptionPane.ERROR_MESSAGE);
                 }
                 
-            }else { //
+            }
+            
+            else { 
                 JOptionPane.showMessageDialog(this, "Este usuario no existe", "digite otro", JOptionPane.ERROR_MESSAGE);
             }
-        }
+        
         
         
 

@@ -85,6 +85,7 @@ public class GestionRecaudo extends javax.swing.JFrame {
         });
         tablaRecaudo.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tablaRecaudo.setColumnSelectionAllowed(true);
+        tablaRecaudo.setRowHeight(22);
         tablaRecaudo.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tablaRecaudo);
         tablaRecaudo.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);

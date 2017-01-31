@@ -41,7 +41,7 @@ public class RegistroPlanilla extends javax.swing.JFrame {
         this.emf = emf;
         this.em = em;
         this.tx = tx;
-        
+        btnGuardarCambios.setVisible(false);
         //////////////////////////// llenar comobobox con rutas/////////////////////////////77
         rutas = this.em.createNamedQuery("Ruta.findAll").getResultList();
         listaBuses = this.em.createNamedQuery("Bus.findAll").getResultList();

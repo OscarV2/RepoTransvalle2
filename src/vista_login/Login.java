@@ -8,7 +8,7 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
 import modelo.Usuario;
-import planilla.CreaciónPDespacho;
+import vista.GestionBuses.Gestionar_buses;
 import vista_recaudo.GestionRecaudo;
 
 public class Login extends javax.swing.JFrame {
@@ -193,8 +193,8 @@ public class Login extends javax.swing.JFrame {
                     switch (rol) {
                         case ("Jefe de ruta"):
                             this.setVisible(false);  // ocultar login
-                            CreaciónPDespacho despacho = new CreaciónPDespacho();
-                            despacho.setVisible(true);
+                            Gestionar_buses buses = new Gestionar_buses();
+                            buses.setVisible(true);
                             break;
                         case ("Auxiliar contable"):
                             // ir a gestion

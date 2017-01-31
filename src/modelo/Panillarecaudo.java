@@ -8,7 +8,6 @@ package modelo;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,8 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Panillarecaudo.findAll", query = "SELECT p FROM Panillarecaudo p")
     , @NamedQuery(name = "Panillarecaudo.findByIdPanillaRecaudo", query = "SELECT p FROM Panillarecaudo p WHERE p.idPanillaRecaudo = :idPanillaRecaudo")
-    , @NamedQuery(name = "Panillarecaudo.findByPersonaidPersona", query = "SELECT p FROM Panillarecaudo p WHERE p.personaidPersona = :personaidPersona")
     , @NamedQuery(name = "Panillarecaudo.findByRuta", query = "SELECT p FROM Panillarecaudo p WHERE p.ruta = :ruta")
+    , @NamedQuery(name = "Panillarecaudo.findByVial", query = "SELECT p FROM Panillarecaudo p WHERE p.vial = :vial")
     , @NamedQuery(name = "Panillarecaudo.findByRecorrido", query = "SELECT p FROM Panillarecaudo p WHERE p.recorrido = :recorrido")
     , @NamedQuery(name = "Panillarecaudo.findByFecha", query = "SELECT p FROM Panillarecaudo p WHERE p.fecha = :fecha")
     , @NamedQuery(name = "Panillarecaudo.findByInicioTorniquete", query = "SELECT p FROM Panillarecaudo p WHERE p.inicioTorniquete = :inicioTorniquete")
@@ -45,21 +44,17 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Panillarecaudo.findByProducidoBruto", query = "SELECT p FROM Panillarecaudo p WHERE p.producidoBruto = :producidoBruto")})
 public class Panillarecaudo implements Serializable {
 
-    @JoinColumn(name = "persona_idPersona", referencedColumnName = "idPersona")
-    @ManyToOne(optional = false)
-    private Persona personaidPersona;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "panillarecaudoidPanillaRecaudo")
-    private Gasto gasto;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idPanillaRecaudo")
     private Integer idPanillaRecaudo;
-    @Basic(optional = false)
     @Column(name = "ruta")
     private String ruta;
+    @Basic(optional = false)
+    @Column(name = "vial")
+    private String vial;
     @Column(name = "recorrido")
     private String recorrido;
     @Column(name = "fecha")
@@ -76,6 +71,12 @@ public class Panillarecaudo implements Serializable {
     private Integer numeroPasajeros;
     @Column(name = "producidoBruto")
     private Integer producidoBruto;
+    @JoinColumn(name = "idgasto", referencedColumnName = "idgasto")
+    @OneToOne
+    private Gasto idgasto;
+    @JoinColumn(name = "idPersona", referencedColumnName = "idPersona")
+    @ManyToOne
+    private Persona idPersona;
 
     public Panillarecaudo() {
     }
@@ -84,8 +85,9 @@ public class Panillarecaudo implements Serializable {
         this.idPanillaRecaudo = idPanillaRecaudo;
     }
 
-    public Panillarecaudo(Integer idPanillaRecaudo, int personaidPersona) {
+    public Panillarecaudo(Integer idPanillaRecaudo, String vial) {
         this.idPanillaRecaudo = idPanillaRecaudo;
+        this.vial = vial;
     }
 
     public Integer getIdPanillaRecaudo() {
@@ -96,14 +98,20 @@ public class Panillarecaudo implements Serializable {
         this.idPanillaRecaudo = idPanillaRecaudo;
     }
 
-    
-
     public String getRuta() {
         return ruta;
     }
 
     public void setRuta(String ruta) {
         this.ruta = ruta;
+    }
+
+    public String getVial() {
+        return vial;
+    }
+
+    public void setVial(String vial) {
+        this.vial = vial;
     }
 
     public String getRecorrido() {
@@ -162,6 +170,22 @@ public class Panillarecaudo implements Serializable {
         this.producidoBruto = producidoBruto;
     }
 
+    public Gasto getIdgasto() {
+        return idgasto;
+    }
+
+    public void setIdgasto(Gasto idgasto) {
+        this.idgasto = idgasto;
+    }
+
+    public Persona getIdPersona() {
+        return idPersona;
+    }
+
+    public void setIdPersona(Persona idPersona) {
+        this.idPersona = idPersona;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -185,22 +209,6 @@ public class Panillarecaudo implements Serializable {
     @Override
     public String toString() {
         return "modelo.Panillarecaudo[ idPanillaRecaudo=" + idPanillaRecaudo + " ]";
-    }
-
-    public Persona getPersonaidPersona() {
-        return personaidPersona;
-    }
-
-    public void setPersonaidPersona(Persona personaidPersona) {
-        this.personaidPersona = personaidPersona;
-    }
-
-    public Gasto getGasto() {
-        return gasto;
-    }
-
-    public void setGasto(Gasto gasto) {
-        this.gasto = gasto;
     }
     
 }

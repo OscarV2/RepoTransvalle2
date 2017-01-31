@@ -48,11 +48,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Bus.findByPlanillaControl", query = "SELECT b FROM Bus b WHERE b.planillaControl = :planillaControl")})
 public class Bus implements Serializable {
 
-    @OneToOne(mappedBy = "busidBus")
-    private Persona persona;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "busidBus")
-    private List<DocumentoHasBus> documentoHasBusList;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -88,6 +83,10 @@ public class Bus implements Serializable {
     private String grupo;
     @Column(name = "planillaControl")
     private Integer planillaControl;
+    @OneToOne(mappedBy = "busidBus")
+    private Persona persona;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "busidBus")
+    private List<DocumentoHasBus> documentoHasBusList;
 
     public Bus() {
     }
@@ -221,6 +220,23 @@ public class Bus implements Serializable {
         this.planillaControl = planillaControl;
     }
 
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
+    }
+
+    @XmlTransient
+    public List<DocumentoHasBus> getDocumentoHasBusList() {
+        return documentoHasBusList;
+    }
+
+    public void setDocumentoHasBusList(List<DocumentoHasBus> documentoHasBusList) {
+        this.documentoHasBusList = documentoHasBusList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -244,23 +260,6 @@ public class Bus implements Serializable {
     @Override
     public String toString() {
         return "modelo.Bus[ idBus=" + idBus + " ]";
-    }
-
-    public Persona getPersona() {
-        return persona;
-    }
-
-    public void setPersona(Persona persona) {
-        this.persona = persona;
-    }
-
-    @XmlTransient
-    public List<DocumentoHasBus> getDocumentoHasBusList() {
-        return documentoHasBusList;
-    }
-
-    public void setDocumentoHasBusList(List<DocumentoHasBus> documentoHasBusList) {
-        this.documentoHasBusList = documentoHasBusList;
     }
     
 }

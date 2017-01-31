@@ -7,6 +7,7 @@ package transvalle2;
 
 import vista_login.Login;
 import vista_recaudo.GestionRecaudo;
+import vista_recaudo.RegistroPlanilla;
 
 /**
  *
@@ -25,6 +26,7 @@ public class Transvalle2 {
        GestionRecaudo recaudo = new GestionRecaudo();
         recaudo.setVisible(true);
 
+       
       
       
 }

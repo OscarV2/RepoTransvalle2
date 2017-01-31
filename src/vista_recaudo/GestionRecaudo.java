@@ -32,7 +32,7 @@ public class GestionRecaudo extends javax.swing.JFrame {
         emf = Persistence.createEntityManagerFactory("Transvalle2PU");  // inicializar entitymanagerfactory
         em = emf.createEntityManager(); // inicializar EntityManager
         tx = em.getTransaction(); // inicializar  EntityTransaction
-        Object[] nombresColumnas = {"Vial", "Placa", "H. Salida", "Ruta", "Recorridos", "Inicio Torniquete", "Final Torniquete", "No. Pasajeros", "Total Bruto", "ACPM", "Sueldo", "Aseo","Otros","Turno","Total gastos", "Producto Neto"};
+        Object[] nombresColumnas = {"Vial", "H. Salida", "Ruta", "Recorridos", "Inicio Torniquete", "Final Torniquete", "No. Pasajeros", "Total Bruto", "ACPM", "Sueldo", "Aseo","Otros","Turno","Total gastos", "Producto Neto"};
         modelTabla = new DefaultTableModel(new Object[0][0], nombresColumnas);
         
         tablaRecaudo.setModel(modelTabla);
@@ -83,6 +83,7 @@ public class GestionRecaudo extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaRecaudo.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tablaRecaudo.setColumnSelectionAllowed(true);
         tablaRecaudo.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tablaRecaudo);
@@ -94,6 +95,11 @@ public class GestionRecaudo extends javax.swing.JFrame {
         btnNuevaPlanilla.setText("Nuevo");
         btnNuevaPlanilla.setBorder(null);
         btnNuevaPlanilla.setBorderPainted(false);
+        btnNuevaPlanilla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevaPlanillaActionPerformed(evt);
+            }
+        });
 
         btnEditar.setBackground(new java.awt.Color(153, 153, 255));
         btnEditar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -150,13 +156,40 @@ public class GestionRecaudo extends javax.swing.JFrame {
             consultarPlanilla.setParameter("fecha", txtFecha.getDate());
             
             List<Panillarecaudo> listaPlanilla = consultarPlanilla.getResultList(); 
-            Panillarecaudo miPlanilla = listaPlanilla.get(0);
-            
+            for (Panillarecaudo panillarecaudo : listaPlanilla) {
+                Object[] o = new Object[15];
+                o[0] = panillarecaudo.getVial();
+                o[1] = panillarecaudo.getHoraSalida();
+                o[2] = panillarecaudo.getRuta();
+                o[3] = panillarecaudo.getRecorrido();
+                o[4] = panillarecaudo.getInicioTorniquete();
+                o[5] = panillarecaudo.getFinalTorniquete();
+                o[6] = panillarecaudo.getNumeroPasajeros();
+                o[7] = panillarecaudo.getProducidoBruto();
+                o[8] = panillarecaudo.getIdgasto().getAcpm();
+                o[9] = panillarecaudo.getIdgasto().getSueldoconductor();
+                o[10] = panillarecaudo.getIdgasto().getAseo();
+                o[11] = panillarecaudo.getIdgasto().getOtros();
+                o[12] = panillarecaudo.getIdgasto().getTurno();
+                o[13] = panillarecaudo.getIdgasto().getTotalGatos();
+                o[14] = panillarecaudo.getIdgasto().getProducidoNeto(); 
+                modelTabla.addRow(o);
+                
+                
+            }
+            tablaRecaudo.setModel(modelTabla);
             
         } else {
             JOptionPane.showMessageDialog(this, "Debe escoger fecha", "Fecha vacia ", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void btnNuevaPlanillaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaPlanillaActionPerformed
+       RegistroPlanilla irAregistro = new RegistroPlanilla(emf,em, tx);
+       irAregistro.setVisible(true);
+       this.setVisible(false);
+
+    }//GEN-LAST:event_btnNuevaPlanillaActionPerformed
 
         public static void main(String args[]) {
         /* Set the Nimbus look and feel */

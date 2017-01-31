@@ -6,14 +6,12 @@
 package modelo;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -30,7 +28,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Gasto.findAll", query = "SELECT g FROM Gasto g")
     , @NamedQuery(name = "Gasto.findByIdgasto", query = "SELECT g FROM Gasto g WHERE g.idgasto = :idgasto")
-    , @NamedQuery(name = "Gasto.findByPanillaRecaudoidPanillaRecaudo", query = "SELECT g FROM Gasto g WHERE g.panillaRecaudoidPanillaRecaudo = :panillaRecaudoidPanillaRecaudo")
     , @NamedQuery(name = "Gasto.findByAcpm", query = "SELECT g FROM Gasto g WHERE g.acpm = :acpm")
     , @NamedQuery(name = "Gasto.findByAseo", query = "SELECT g FROM Gasto g WHERE g.aseo = :aseo")
     , @NamedQuery(name = "Gasto.findBySueldoconductor", query = "SELECT g FROM Gasto g WHERE g.sueldoconductor = :sueldoconductor")
@@ -40,45 +37,34 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Gasto.findByProducidoNeto", query = "SELECT g FROM Gasto g WHERE g.producidoNeto = :producidoNeto")})
 public class Gasto implements Serializable {
 
-    @JoinColumn(name = "panillarecaudo_idPanillaRecaudo", referencedColumnName = "idPanillaRecaudo")
-    @OneToOne(optional = false)
-    private Panillarecaudo panillarecaudoidPanillaRecaudo;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idgasto")
     private Integer idgasto;
-    @Basic(optional = false)
-    @Column(name = "PanillaRecaudo_idPanillaRecaudo")
-    private int panillaRecaudoidPanillaRecaudo;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "acpm")
-    private BigDecimal acpm;
+    private Integer acpm;
     @Column(name = "aseo")
-    private BigDecimal aseo;
+    private Integer aseo;
     @Column(name = "sueldoconductor")
-    private BigDecimal sueldoconductor;
+    private Integer sueldoconductor;
     @Column(name = "otros")
-    private BigDecimal otros;
+    private Integer otros;
     @Column(name = "turno")
-    private BigDecimal turno;
+    private Integer turno;
     @Column(name = "totalGatos")
-    private BigDecimal totalGatos;
+    private Integer totalGatos;
     @Column(name = "producidoNeto")
-    private BigDecimal producidoNeto;
+    private Integer producidoNeto;
+    @OneToOne(mappedBy = "idgasto")
+    private Panillarecaudo panillarecaudo;
 
     public Gasto() {
     }
 
     public Gasto(Integer idgasto) {
         this.idgasto = idgasto;
-    }
-
-    public Gasto(Integer idgasto, int panillaRecaudoidPanillaRecaudo) {
-        this.idgasto = idgasto;
-        this.panillaRecaudoidPanillaRecaudo = panillaRecaudoidPanillaRecaudo;
     }
 
     public Integer getIdgasto() {
@@ -89,68 +75,68 @@ public class Gasto implements Serializable {
         this.idgasto = idgasto;
     }
 
-    public int getPanillaRecaudoidPanillaRecaudo() {
-        return panillaRecaudoidPanillaRecaudo;
-    }
-
-    public void setPanillaRecaudoidPanillaRecaudo(int panillaRecaudoidPanillaRecaudo) {
-        this.panillaRecaudoidPanillaRecaudo = panillaRecaudoidPanillaRecaudo;
-    }
-
-    public BigDecimal getAcpm() {
+    public Integer getAcpm() {
         return acpm;
     }
 
-    public void setAcpm(BigDecimal acpm) {
+    public void setAcpm(Integer acpm) {
         this.acpm = acpm;
     }
 
-    public BigDecimal getAseo() {
+    public Integer getAseo() {
         return aseo;
     }
 
-    public void setAseo(BigDecimal aseo) {
+    public void setAseo(Integer aseo) {
         this.aseo = aseo;
     }
 
-    public BigDecimal getSueldoconductor() {
+    public Integer getSueldoconductor() {
         return sueldoconductor;
     }
 
-    public void setSueldoconductor(BigDecimal sueldoconductor) {
+    public void setSueldoconductor(Integer sueldoconductor) {
         this.sueldoconductor = sueldoconductor;
     }
 
-    public BigDecimal getOtros() {
+    public Integer getOtros() {
         return otros;
     }
 
-    public void setOtros(BigDecimal otros) {
+    public void setOtros(Integer otros) {
         this.otros = otros;
     }
 
-    public BigDecimal getTurno() {
+    public Integer getTurno() {
         return turno;
     }
 
-    public void setTurno(BigDecimal turno) {
+    public void setTurno(Integer turno) {
         this.turno = turno;
     }
 
-    public BigDecimal getTotalGatos() {
+    public Integer getTotalGatos() {
         return totalGatos;
     }
 
-    public void setTotalGatos(BigDecimal totalGatos) {
+    public void setTotalGatos(Integer totalGatos) {
         this.totalGatos = totalGatos;
     }
 
-    public BigDecimal getProducidoNeto() {
+    public Integer getProducidoNeto() {
         return producidoNeto;
     }
 
-    public void setProducidoNeto(BigDecimal producidoNeto) {
+    public void setProducidoNeto(Integer producidoNeto) {
         this.producidoNeto = producidoNeto;
+    }
+
+    public Panillarecaudo getPanillarecaudo() {
+        return panillarecaudo;
+    }
+
+    public void setPanillarecaudo(Panillarecaudo panillarecaudo) {
+        this.panillarecaudo = panillarecaudo;
     }
 
     @Override
@@ -176,14 +162,6 @@ public class Gasto implements Serializable {
     @Override
     public String toString() {
         return "modelo.Gasto[ idgasto=" + idgasto + " ]";
-    }
-
-    public Panillarecaudo getPanillarecaudoidPanillaRecaudo() {
-        return panillarecaudoidPanillaRecaudo;
-    }
-
-    public void setPanillarecaudoidPanillaRecaudo(Panillarecaudo panillarecaudoidPanillaRecaudo) {
-        this.panillarecaudoidPanillaRecaudo = panillarecaudoidPanillaRecaudo;
     }
     
 }

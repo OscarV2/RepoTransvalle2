@@ -8,6 +8,7 @@ package modelo;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -50,6 +52,8 @@ public class DocumentoHasBus implements Serializable {
     @JoinColumn(name = "bus_idBus", referencedColumnName = "idBus")
     @ManyToOne(optional = false)
     private Bus busidBus;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "documentohasbusDocumentoidDocumento")
+    private Documento documento;
 
     public DocumentoHasBus() {
     }
@@ -94,6 +98,14 @@ public class DocumentoHasBus implements Serializable {
 
     public void setBusidBus(Bus busidBus) {
         this.busidBus = busidBus;
+    }
+
+    public Documento getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(Documento documento) {
+        this.documento = documento;
     }
 
     @Override

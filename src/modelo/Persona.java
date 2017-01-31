@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,9 +42,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Persona.findByFechaNacimiento", query = "SELECT p FROM Persona p WHERE p.fechaNacimiento = :fechaNacimiento")})
 public class Persona implements Serializable {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personaidPersona")
-    private List<Panillarecaudo> panillarecaudoList;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -67,6 +63,8 @@ public class Persona implements Serializable {
     @JoinColumn(name = "bus_idBus", referencedColumnName = "idBus")
     @OneToOne
     private Bus busidBus;
+    @OneToMany(mappedBy = "idPersona")
+    private List<Panillarecaudo> panillarecaudoList;
 
     public Persona() {
     }
@@ -136,6 +134,15 @@ public class Persona implements Serializable {
         this.busidBus = busidBus;
     }
 
+    @XmlTransient
+    public List<Panillarecaudo> getPanillarecaudoList() {
+        return panillarecaudoList;
+    }
+
+    public void setPanillarecaudoList(List<Panillarecaudo> panillarecaudoList) {
+        this.panillarecaudoList = panillarecaudoList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -159,15 +166,6 @@ public class Persona implements Serializable {
     @Override
     public String toString() {
         return "modelo.Persona[ idPersona=" + idPersona + " ]";
-    }
-
-    @XmlTransient
-    public List<Panillarecaudo> getPanillarecaudoList() {
-        return panillarecaudoList;
-    }
-
-    public void setPanillarecaudoList(List<Panillarecaudo> panillarecaudoList) {
-        this.panillarecaudoList = panillarecaudoList;
     }
     
 }

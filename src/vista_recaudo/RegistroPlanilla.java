@@ -5,6 +5,8 @@
  */
 package vista_recaudo;
 
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,7 +23,7 @@ import modelo.Ruta;
  *
  * @author oscar
  */
-public class RegistroPlanilla extends javax.swing.JFrame {
+public class RegistroPlanilla extends javax.swing.JFrame{
 
     private EntityManagerFactory emf;
     private EntityManager em;
@@ -32,9 +34,10 @@ public class RegistroPlanilla extends javax.swing.JFrame {
     Object[] viales;
     Panillarecaudo planilla;
     Gasto gastos;
-    public RegistroPlanilla() {                       
-    }
+   // public RegistroPlanilla() {                       
+  //  }
 
+    
     public RegistroPlanilla(EntityManagerFactory emf ,EntityManager em, EntityTransaction tx) {
         initComponents();
         setLocationRelativeTo(null);
@@ -42,6 +45,41 @@ public class RegistroPlanilla extends javax.swing.JFrame {
         this.em = em;
         this.tx = tx;
         btnGuardarCambios.setVisible(false);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent we) {
+            }
+
+            @Override
+            public void windowClosing(WindowEvent we) {
+                System.err.println("window closing");
+                GestionRecaudo recaudo = new GestionRecaudo();
+                recaudo.setVisible(true);
+                setVisible(false);
+            }
+
+            @Override
+            public void windowClosed(WindowEvent we) {
+            }
+
+            @Override
+            public void windowIconified(WindowEvent we) {
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent we) {
+            }
+
+            @Override
+            public void windowActivated(WindowEvent we) {
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent we) {
+            }
+        });
+        
         //////////////////////////// llenar comobobox con rutas/////////////////////////////77
         rutas = this.em.createNamedQuery("Ruta.findAll").getResultList();
         listaBuses = this.em.createNamedQuery("Bus.findAll").getResultList();
@@ -399,11 +437,11 @@ public class RegistroPlanilla extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+      /*  java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new RegistroPlanilla().setVisible(true);
             }
-        });
+        });*/
     }
     private int calcularGastos() {
         gastos = new Gasto();
@@ -490,6 +528,7 @@ public class RegistroPlanilla extends javax.swing.JFrame {
         return si;
     }
 
+   
 
     
 }

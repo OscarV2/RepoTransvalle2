@@ -14,6 +14,7 @@ import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Bus;
+import vista_login.Login;
 
 /**
  *
@@ -85,7 +86,6 @@ public class Gestionar_buses extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabBusesListaDeBuses = new javax.swing.JTable();
         btnGestBusIrAEliminarBus = new javax.swing.JButton();
-        btnImprimirBus = new javax.swing.JButton();
         btnVerTodos = new javax.swing.JButton();
 
         setTitle("Gestionar Buses");
@@ -105,7 +105,7 @@ public class Gestionar_buses extends javax.swing.JFrame {
 
         btnGestBusSalir.setBackground(new java.awt.Color(0, 204, 255));
         btnGestBusSalir.setForeground(new java.awt.Color(255, 255, 255));
-        btnGestBusSalir.setText("Salir");
+        btnGestBusSalir.setText("Cerrar Sesion");
         btnGestBusSalir.setBorder(null);
         btnGestBusSalir.setBorderPainted(false);
         btnGestBusSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -209,14 +209,6 @@ public class Gestionar_buses extends javax.swing.JFrame {
             }
         });
 
-        btnImprimirBus.setBackground(new java.awt.Color(0, 204, 255));
-        btnImprimirBus.setForeground(new java.awt.Color(255, 255, 255));
-        btnImprimirBus.setText("Imprimir Bus");
-        btnImprimirBus.setBorder(null);
-        btnImprimirBus.setBorderPainted(false);
-        btnImprimirBus.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnImprimirBus.setFocusPainted(false);
-
         btnVerTodos.setBackground(new java.awt.Color(0, 204, 255));
         btnVerTodos.setForeground(new java.awt.Color(255, 255, 255));
         btnVerTodos.setText("Ver todos");
@@ -249,21 +241,19 @@ public class Gestionar_buses extends javax.swing.JFrame {
                                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnVerTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 515, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addComponent(btnGestionBusesIrAVerDocumentos)
                         .addGap(31, 31, 31)
                         .addComponent(btnGestBusIrAEliminarBus, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(btnImprimirBus, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 208, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnGestBusIrARegistrarBus, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)
+                        .addGap(65, 65, 65)
                         .addComponent(btnGestBusIrAEditarBus, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
-                        .addComponent(btnGestBusSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44)
+                        .addComponent(btnGestBusSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20)))
                 .addContainerGap())
         );
@@ -288,8 +278,7 @@ public class Gestionar_buses extends javax.swing.JFrame {
                     .addComponent(btnGestBusIrARegistrarBus, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGestBusIrAEditarBus, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGestBusSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGestBusIrAEliminarBus, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnImprimirBus, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnGestBusIrAEliminarBus, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
 
@@ -297,6 +286,8 @@ public class Gestionar_buses extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGestBusSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestBusSalirActionPerformed
+        Login login = new Login();
+        login.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnGestBusSalirActionPerformed
 
@@ -457,7 +448,6 @@ public class Gestionar_buses extends javax.swing.JFrame {
     private javax.swing.JButton btnGestBusIrARegistrarBus;
     private javax.swing.JButton btnGestBusSalir;
     private javax.swing.JButton btnGestionBusesIrAVerDocumentos;
-    private javax.swing.JButton btnImprimirBus;
     private javax.swing.JButton btnVerTodos;
     private javax.swing.JComboBox<String> comboboxConsultaBus;
     private javax.swing.JLabel jLabel1;

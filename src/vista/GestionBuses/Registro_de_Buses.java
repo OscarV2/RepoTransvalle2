@@ -1,5 +1,7 @@
 package vista.GestionBuses;
 
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -8,6 +10,7 @@ import javax.persistence.EntityTransaction;
 import javax.swing.JOptionPane;
 import javax.swing.text.BadLocationException;
 import modelo.Bus;
+import vista_recaudo.GestionRecaudo;
 
 /**
  *
@@ -27,6 +30,38 @@ public class Registro_de_Buses extends javax.swing.JFrame {
         initComponents();
         btnGuardarCambios.setVisible(false);
         this.setLocationRelativeTo(null);
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent we) {
+            }
+
+            @Override
+            public void windowClosing(WindowEvent we) {
+                Gestionar_buses gestion = new Gestionar_buses();
+            gestion.setVisible(true);
+            setVisible(false);
+            }
+
+            @Override
+            public void windowClosed(WindowEvent we) {
+            }
+
+            @Override
+            public void windowIconified(WindowEvent we) {
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent we) {
+            }
+
+            @Override
+            public void windowActivated(WindowEvent we) {
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent we) {
+            }
+        });
     }
 
     public Registro_de_Buses(EntityManagerFactory emf, EntityManager em, EntityTransaction tx, Bus bus) { // Constructor para editar bus
@@ -354,6 +389,7 @@ public class Registro_de_Buses extends javax.swing.JFrame {
       
     }//GEN-LAST:event_btnGuardarCambiosActionPerformed
 
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardarCambios;
